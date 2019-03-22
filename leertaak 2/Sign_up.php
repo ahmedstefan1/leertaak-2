@@ -46,25 +46,51 @@
           else {
             $Username=$Usernametest;
           }
-
-
         }
-
         //tests password
         if (empty(mysqli_real_escape_string($Connection, test_input($_POST['Password'])))) {
           $PasswordErr="Password is mandatory";
         }
         else {
-          $Password=mysqli_real_escape_string($Connection,test_input($_POST['Password']));
-          if (strlen($Password) < 8) {
+          $passtest = mysqli_real_escape_string($Connection,test_input($_POST['Password']));
+          if (strlen($passtest) >= 8) {
+            $pattern1 = '/[a-z]/ ';
+            $pattern2 = '/[\d]/ ';
+            $pattern3 = '/[^\s]/ ';
+            $pattern4 = '/[^a-zA-Z-0-9]/ ';
+            $pattern5 = '/[A-Z]/ ';
+            if (preg_match_all($pattern1,$passtest)) {
+              if (preg_match_all($pattern2,$passtest)) {
+                if (preg_match_all($pattern3,$passtest)) {
+                  if (preg_match_all($pattern4,$passtest)) {
+                    if (preg_match_all($pattern5,$passtest)) {
+                      $Password = mysqli_real_escape_string($Connection,test_input($_POST['Password']));
+                    }
+                    else{
+                      $PasswordErr="Password must have atleast one capital letter";
+                    }
+                  }
+                  else{
+                    $PasswordErr="Password must have atleast one special character";
+                  }
+                }
+                else{
+                  $PasswordErr="Password shouldnt have a whitespace";
+                }
+              }
+              else{
+                $PasswordErr="Password must have atleast one number";
+              }
+            }
+            else {
+              $PasswordErr="Password must have atleast one small letter";
+            }
+          }
+          else {
             $PasswordErr="Password must be atleast 8 characters";
           }
         }
       }
-
-
-
-
 
       ?>
 
@@ -88,6 +114,7 @@
 
       if ( ! empty($Username)
         and ! empty($Password)){
+
 
           //hashes the password and the salt
           $Hashed= hasher($Password);
