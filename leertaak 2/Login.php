@@ -18,11 +18,6 @@
       include 'MenuBar.php';
       require 'functions.php';
 
-      //creates secure connection
-      secure();
-
-
-
 
       //check if someone is already logged in
       if (LoggedIn() == 1) {

@@ -18,16 +18,6 @@
     return $Input;
   }
 
-  function secure(){
-    //Checks if the Connection is HTTPS of HTTP, if its HTTP it does the following code
-    if (! isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off' ) {
-      //makes the https url and stores it in a variable
-      $Url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-      //redirects the user
-      header("Location: $Url");
-    }
-  }
-
   function hasher($Password){
     $options = ['cost' => 16,];
     //hashes the password
