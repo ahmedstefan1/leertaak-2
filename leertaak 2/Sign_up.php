@@ -7,7 +7,18 @@
 
   <body>
 
-      <?php
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <?php
       include 'MenuBar.php';
       require 'functions.php';
 
@@ -94,16 +105,18 @@
 
       <form method="post" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
-          username:<br>
-          <input type="text" name="Username" required="" value="<?php echo $Usernametest;?>">
-          <span class="error">*<?php echo $UsernameErr;?></span><br>
+          <div class="form-label-group">
+              <input type="text" name="Username" id="Username" class="form-control" placeholder="Username" required autofocus>
+              <label for="Username">Username</label>
+          </div>
 
-          password:<br>
-          <input type="password" required="" name="Password">
-          <span class="error">* <?php echo $PasswordErr; ?></span><br>
+          <div class="form-label-group">
+              <input type="password" name="Password" id="Password" class="form-control" placeholder="Password" required>
+              <label for="Password">Password</label>
+          </div>
 
-          <br>
-          <input name="submit" type="submit" value="sign up">
+          <button class="btn login-button btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+          <a class="btn back-button btn-lg btn-primary btn-block text-uppercase" href="javascript:history.back()">Back</a>
 
       </form>
 

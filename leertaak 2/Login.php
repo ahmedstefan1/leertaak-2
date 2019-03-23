@@ -51,16 +51,17 @@
 
 
       <form method="post" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+          <div class="form-label-group">
+              <input type="text" id="Username" name="Username" class="form-control" placeholder="Username" required autofocus>
+              <label for="Username">Username</label>
+          </div>
 
-          username:<br>
-          <input type="text" name="Username" required="" value="<?php echo $Username;?>"><span class="error">*<?php echo $UsernameErr;?></span><br>
+          <div class="form-label-group">
+              <input type="password" id="Password" name="Password" class="form-control" placeholder="Password" required>
+              <label for="Password">Password</label>
+          </div>
 
-          Password:<br>
-          <input type="password" name="Password" required=""><span class="error">*<?php echo $PasswordErr;?></span><br>
-
-          <input type="submit" name="submit" value="login">
-
-      </form>
+          <button class="btn login-button btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
 
       <?php
         //if the fields arent empty
