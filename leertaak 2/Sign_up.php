@@ -16,8 +16,7 @@
 
 <body id="login">
 
-
-<?php
+      <?php
       include 'MenuBar.php';
       require 'functions.php';
 
@@ -75,23 +74,23 @@
                       $Password = mysqli_real_escape_string($Connection,test_input($_POST['Password']));
                     }
                     else{
-                      $PasswordErr="Password must have atleast one capital letter";
+                      $PasswordErr="Password must have atleast one small letter, one capital letter, one number and a special character";
                     }
                   }
                   else{
-                    $PasswordErr="Password must have atleast one special character";
+                    $PasswordErr="Password must have atleast one small letter, one capital letter, one number and a special character";
                   }
                 }
                 else{
-                  $PasswordErr="Password shouldnt have a whitespace";
+                  $PasswordErr="Password must have atleast one small letter, one capital letter, one number and a special character";
                 }
               }
               else{
-                $PasswordErr="Password must have atleast one number";
+                $PasswordErr="Password must have atleast one small letter, one capital letter, one number and a special character";
               }
             }
             else {
-              $PasswordErr="Password must have atleast one small letter";
+              $PasswordErr="Password must have atleast one small letter, one capital letter, one number and a special character";
             }
           }
           else {
@@ -101,31 +100,31 @@
       }
 
       ?>
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                  <div class="card card-signin my-5">
+                      <div class="card-body">
+                          <div class="logo-container">
+                              <img src="img/logo.jpg" alt="Logo University">
+                          </div>
+                          <form class="form-signin" method="post" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <div class="card card-signin my-5">
-                <div class="card-body">
-                    <div class="logo-container">
-                        <img src="img/logo.jpg" alt="Logo University">
-                    </div>
-                    <form class="form-signin">
-                        <div class="form-label-group">
-                            <input type="text" id="Username" class="form-control" placeholder="Username" required autofocus>
-                            <label for="Username">Username</label>
-                        </div>
+                            username:<br>
+                            <input id="Username" class="form-control" type="text" name="Username" required="" value="<?php echo $Usernametest;?>">
+                            <span class="error">*<?php echo $UsernameErr;?></span><br>
 
-                        <div class="form-label-group">
-                            <input type="password" id="Password" class="form-control" placeholder="Password" required>
-                            <label for="Password">Password</label>
-                        </div>
-                        <button class="btn login-button btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+                            password:<br>
+                            <input id="Password" class="form-control" type="password" required="" name="Password">
+                            <span class="error">* <?php echo $PasswordErr; ?></span><br>
+
+                            <br>
+                            <button class="btn login-button btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+                        </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
 
       <?php
 
@@ -160,10 +159,5 @@
 
 
       ?>
-    <footer>
-        <p>&copy; 2019 Syrian Cyber Army</p>
-    </footer>
-</div>
-</body>
-</body>
+  </body>
 </html>

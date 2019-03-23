@@ -15,6 +15,7 @@
 </head>
 
 <body id="login">
+    <div id="container">
 
 
       <?php
@@ -52,27 +53,26 @@
 
 
       ?>
-      <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                    <div class="card card-signin my-5">
-                        <div class="card-body">
-                            <div class="logo-container">
-                                <img src="img/logo.jpg" alt="Logo University">
-                            </div>
-                            <form class="form-signin">
-                                <div class="form-label-group">
-                                    <input type="text" id="Username" class="form-control" placeholder="Username" required autofocus>
-                                    <label for="Username">Username</label>
-                                </div>
 
-                                <div class="form-label-group">
-                                    <input type="password" id="Password" class="form-control" placeholder="Password" required>
-                                    <label for="Password">Password</label>
-                                </div>
-                                <button class="btn login-button btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
-                            </form>
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                  <div class="card card-signin my-5">
+                      <div class="card-body">
+                          <div class="logo-container">
+                              <img src="img/logo.jpg" alt="Logo University">
+                          </div>
+                          <form class="form-signin" method="post" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
+                            username:<br>
+                            <input type="text" id="Username" class="form-control" name="Username" required="" value="<?php echo $Username;?>"><span class="error">*<?php echo $UsernameErr;?></span><br>
+
+                            Password:<br>
+                            <input type="password" id="Password" class="form-control" name="Password" required=""><span class="error">*<?php echo $PasswordErr;?></span><br>
+
+                            <button class="btn login-button btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
+
+                          </form>
                         </div>
                     </div>
                 </div>
