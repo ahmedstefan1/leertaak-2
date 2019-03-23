@@ -1,16 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="Stylesheet.css">
-    <title>login</title>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
-  </head>
+    <title>Weatherstation Coolerts</title>
+</head>
 
-  <body>
-    <div id="container">
-      <header>
-        <h1>login</h1>
-      </header>
+<body id="login">
 
 
       <?php
@@ -48,20 +52,31 @@
 
 
       ?>
+      <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div class="card card-signin my-5">
+                        <div class="card-body">
+                            <div class="logo-container">
+                                <img src="img/logo.jpg" alt="Logo University">
+                            </div>
+                            <form class="form-signin">
+                                <div class="form-label-group">
+                                    <input type="text" id="Username" class="form-control" placeholder="Username" required autofocus>
+                                    <label for="Username">Username</label>
+                                </div>
 
-
-      <form method="post" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-          <div class="form-label-group">
-              <input type="text" id="Username" name="Username" class="form-control" placeholder="Username" required autofocus>
-              <label for="Username">Username</label>
-          </div>
-
-          <div class="form-label-group">
-              <input type="password" id="Password" name="Password" class="form-control" placeholder="Password" required>
-              <label for="Password">Password</label>
-          </div>
-
-          <button class="btn login-button btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+                                <div class="form-label-group">
+                                    <input type="password" id="Password" class="form-control" placeholder="Password" required>
+                                    <label for="Password">Password</label>
+                                </div>
+                                <button class="btn login-button btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
       <?php
         //if the fields arent empty
