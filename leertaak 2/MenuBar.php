@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="Stylesheet1.css">
+<link rel="stylesheet" type="text/css" href="Stylesheet.css">
 
 <ul id="Top-Bar">
   <li><a id="Link-Left" href="index.php">Home</a></li>
