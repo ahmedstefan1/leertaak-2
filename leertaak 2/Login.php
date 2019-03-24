@@ -26,7 +26,7 @@
 
       //check if someone is already logged in
       if (LoggedIn() == 1) {
-        header('location: index.php');
+        header('location: myaccount.php');
         mysqli_close($connection);
       }
 
@@ -82,7 +82,7 @@
         if ( ! empty($Username) and ! empty($Password)){
 
           // selects tha hash in the database and the salt used from the entry that has the username that the user put in the text field
-          $query ="SELECT user_id, password FROM users WHERE username = '$Username'" ;
+          $query ="SELECT user_id, password, geactiveerd FROM users WHERE username = '$Username'" ;
 
           //the result of that query is put in the variable result
           $Result = mysqli_query($Connection, $query);
@@ -95,23 +95,27 @@
             //puts the hash that is in the database into the variable hash
             $hash = $User['password'];
 
-            $permission = 0;
+            $actief = $User['geactiveerd'];
 
 
             //if the variable user_input is the same as the hash from the database
             if (password_verify($Password,$hash)) {
               //stores the ID and the username of the user into the session variables
-              $_SESSION["ID"] = "$ID";
-              $_SESSION["Username"] = "$Username";
-              if ($permission == 1) {
-                $_SESSION["Permission"] = 1;
+
+              if ($actief == 1) {
+                $_SESSION["ID"] = "$ID";
+                $_SESSION["Username"] = "$Username";
+                header('location: myaccount.php');
+                mysqli_free_result($Result);
+                mysqli_close($Connection);
               }
               else {
-                $_SESSION["Permission"] = 0;
+                header('location: inactief.php');
+                mysqli_free_result($Result);
+                mysqli_close($Connection);
               }
-              mysqli_free_result($Result);
-              mysqli_close($Connection);
-              header('location: index.php');
+
+
 
 
             }

@@ -17,16 +17,11 @@
     <?php
     include 'MenuBar.php';
     require 'functions.php';
-    //check if someone is already logged in
-    if (LoggedIn() == 1) {
-      header('location: myaccount.php');
-      mysqli_close($connection);
-    }
     ?>
     <div class="container">
         <div class="row">
             <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-              kom binnen 30 dagen bij een van onze vestigingen om uw account te activeren.
+              dit account is not niet geactiveerd.
             </div>
           </div>
         </div>

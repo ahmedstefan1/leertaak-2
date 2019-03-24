@@ -22,24 +22,31 @@
 
 
       //check if someone is already logged in
-      if (isset($_SESSION['ID'])) {
-        header('location: index.php');
+      if (LoggedIn() == 1) {
+        header('location: myaccount.php');
         mysqli_close($connection);
       }
 
 
 
       //predefinded variables
-      $UsernameErr=$PasswordErr="";
+      $UsernameErr=$PasswordErr=$naamErr="";
       $Usernametest=$Password="";
 
       //if the webpage refreshes with the request method POST it will check all the frields that should have been filled. if any are empty it will show errors. if only one is empty it will save all the other values and display them so the user only needs to enter one field
       if ($_SERVER["REQUEST_METHOD"]=="POST") {
         $PasswordErr="passwoord is verplicht";
 
+        if(empty(mysqli_real_escape_string($Connection, test_input($_POST['naam'])))){
+          $naamErr="je moet je naam invullen";
+        }
+        else {
+          $naam = mysqli_real_escape_string($Connection, test_input($_POST['naam']));
+        }
+
         //tests username
         if (empty(mysqli_real_escape_string($Connection, test_input($_POST['Username'])))) {
-          $UsernameErr="username is verplicht";
+          $UsernameErr="gebruikersnaam is verplicht";
         }
         else {
           $Usernametest=mysqli_real_escape_string($Connection, test_input($_POST['Username']));
@@ -48,7 +55,7 @@
           $result = mysqli_query($Connection, $testusername);
 
           if (mysqli_num_rows($result) > 0) {
-            $UsernameErr="username already in use";
+            $UsernameErr="gebruikersnaam is al in gebruik";
           }
           else {
             $Username=$Usernametest;
@@ -108,6 +115,9 @@
                           <div class="logo-container">
                           </div>
                           <form class="form-signin" method="post" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                            volledige naam:<br>
+                            <input id="Username" class="form-control" type="text" name="naam" required="" value="">
+                            <span class="error">*<?php echo $naamErr;?></span><br>
 
                             username:<br>
                             <input id="Username" class="form-control" type="text" name="Username" required="" value="<?php echo $Usernametest;?>">
@@ -136,8 +146,8 @@
           $Hashed= hasher($Password);
 
           //sql Query die zal uitgevoerd worden
-          $Query="INSERT INTO users (user_id, Username, Password)
-          VALUES (NULL, '$Username', '$Hashed');";
+          $Query="INSERT INTO users (user_id, Naam, Username, Password, geactiveerd)
+          VALUES (NULL, '$naam', '$Username', '$Hashed', 0);";
 
           if(mysqli_query($Connection, $Query)){
 

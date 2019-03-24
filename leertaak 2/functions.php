@@ -19,7 +19,7 @@
   }
 
   function hasher($Password){
-    $options = ['cost' => 16,];
+    $options = ['cost' => 14,];
     //hashes the password
     $Hash = password_hash($Password,PASSWORD_BCRYPT, $options);
     //returns hashed password
