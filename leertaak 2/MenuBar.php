@@ -10,8 +10,8 @@
   if (isset($_SESSION["Username"])) {
     ?>
       <li><a id="Link-Right" href="Log_off.php">sign off</a></li>
+      <li><a id="Link-Right" href="overschrijven.php">overschrijven</a></li>
       <li><a id="Link-Right" href="myaccount.php"><?php echo $_SESSION["Username"]; ?></a></li>
-      <li><a id="Link-Right" href="myaccount.php">overschrijven</a></li>
     </ul>
     <?php
   }

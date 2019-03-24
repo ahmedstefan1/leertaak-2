@@ -45,7 +45,7 @@
 
           echo "rekeningnummer : $ID ";
           echo "waarde: $value ";
-          if ($type == 0) {
+          if ($type == 1) {
             echo "type: particulier";
           }
           else {

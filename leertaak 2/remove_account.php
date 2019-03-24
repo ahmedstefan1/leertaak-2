@@ -40,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
       //if the variable user_input is the same as the hash from the database
       if (password_verify($Password,$hash)) {
         echo "yes";
+
         //TODO check if the stort account is of the same user en daarna stort het
       }
       else {

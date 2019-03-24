@@ -26,20 +26,14 @@
     header('location: login.php');
     mysqli_close($connection);
   }
-  if (!empty(mysqli_real_escape_string($Connection, test_input($_GET['account_id'])))) {
-    $account_id=mysqli_real_escape_string($Connection, test_input($_GET['account_id']));
-  }
-  else{
-    header('location: myaccount.php');
-  }
+
 
   $id = $_SESSION["ID"];
-  // selects tha hash in the database and the salt used from the entry that has the username that the user put in the text field
-  $query ="SELECT account_id, value, type FROM account WHERE user = '$id' AND account_id = '$account_id'" ;
+  $query ="SELECT account_id, value, type FROM account WHERE user = '$id'" ;
 
   //the result of that query is put in the variable result
   $Result = mysqli_query($Connection, $query);
-  if (mysqli_num_rows($Result) == 1) {
+  if (mysqli_num_rows($Result) > 0) {
     //makes sure we can use the attributes to put data into variables
     while($account = mysqli_fetch_assoc($Result)){
 
@@ -69,23 +63,13 @@
               <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                   <div class="card card-signin my-5">
                       <div class="card-body">
-                          <form class="form-signin" method="post" action ="<?php echo htmlspecialchars("add_account.php");?>">
-                            <input type="radio" name="account_type" value="1" checked> particulier<br>
-                            <input type="radio" name="account_type" value="2"> zakelijk<br>
-                            <br>
-                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">voeg rekening toe</button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                      <div class="card card-signin my-5">
-                        <div class="card-body">
+                        <div class="logo-container">
+                          </div>
                           <form class="form-signin" method="post" action ="<?php echo htmlspecialchars("remove_account.php");?>">
-                            stort geld naar rekening:<br>
+                            van rekening:
                             <select name="stort">
                               <?php
-                              $query_account ="SELECT account_id FROM account WHERE user = '$id' AND NOT account_id = '$account_id'" ;
+                              $query_account ="SELECT account_id FROM account WHERE user = '$id'" ;
 
                               //the result of that query is put in the variable result
                               $Result = mysqli_query($Connection, $query_account);
@@ -101,12 +85,16 @@
                               }
                               ?>
                             </select><br>
+                            Naar:<br>
+                            <input id="Username" class="form-control" type="text" name="rekeningnummer" required="" value="">
+                            hoeveelheid:<br>
+                            <input id="Username" class="form-control" type="number" name="Username" required="" value="">
                             username:<br>
                             <input id="Username" class="form-control" type="text" name="Username" required="" value="">
                             password:<br>
                             <input id="Password" class="form-control" type="password" required="" name="Password">
                             <br>
-                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">verwijder rekening</button>
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">verstuur</button>
                         </form>
                       </div>
                   </div>
