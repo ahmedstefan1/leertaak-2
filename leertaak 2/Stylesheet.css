@@ -80,4 +80,8 @@ makes the color white
 #out2 {
     display: none;
 }
+
+#remove{
+  background-color: red;
+}
 /* END LOCATION */

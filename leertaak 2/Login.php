@@ -55,12 +55,12 @@
       ?>
 
       <div class="container">
-          <div class="row">
-              <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                  <div class="card card-signin my-5">
-                      <div class="card-body">
-                          <div class="logo-container">
-                          </div>
+        <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+              <div class="card card-signin my-5">
+                  <div class="card-body">
+                      <div class="logo-container">
+                        </div>
                           <form class="form-signin" method="post" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
                             username:<br>
@@ -82,7 +82,7 @@
         if ( ! empty($Username) and ! empty($Password)){
 
           // selects tha hash in the database and the salt used from the entry that has the username that the user put in the text field
-          $query ="SELECT user_id, password, geactiveerd FROM users WHERE username = '$Username'" ;
+          $query ="SELECT user_id, naam, password, geactiveerd FROM users WHERE username = '$Username'" ;
 
           //the result of that query is put in the variable result
           $Result = mysqli_query($Connection, $query);
@@ -94,6 +94,7 @@
             $ID = $User['user_id'];
             //puts the hash that is in the database into the variable hash
             $hash = $User['password'];
+            $naam = $user['naam'];
 
             $actief = $User['geactiveerd'];
 
@@ -105,6 +106,7 @@
               if ($actief == 1) {
                 $_SESSION["ID"] = "$ID";
                 $_SESSION["Username"] = "$Username";
+                $_SESSION["naam"] = "$naam";
                 header('location: myaccount.php');
                 mysqli_free_result($Result);
                 mysqli_close($Connection);

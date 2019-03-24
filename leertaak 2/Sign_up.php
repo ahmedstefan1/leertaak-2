@@ -30,8 +30,8 @@
 
 
       //predefinded variables
-      $UsernameErr=$PasswordErr=$naamErr="";
-      $Usernametest=$Password="";
+      $UsernameErr=$PasswordErr=$naamErr=$emailErr="";
+      $Usernametest=$Password=$naam=$email="";
 
       //if the webpage refreshes with the request method POST it will check all the frields that should have been filled. if any are empty it will show errors. if only one is empty it will save all the other values and display them so the user only needs to enter one field
       if ($_SERVER["REQUEST_METHOD"]=="POST") {
@@ -42,6 +42,28 @@
         }
         else {
           $naam = mysqli_real_escape_string($Connection, test_input($_POST['naam']));
+        }
+        if(empty(mysqli_real_escape_string($Connection, test_input($_POST['email'])))){
+          $emailErr="je moet je email invullen";
+        }
+        else {
+          $testemail = mysqli_real_escape_string($Connection, test_input($_POST['email']));
+          $patternemail = "/^[^0-9][_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/";
+          if(preg_match($patternemail,$testemail)){
+            //check if username is already in use
+            $testemailquery="SELECT user_id FROM users WHERE email = '$testemail'" ;
+            $result = mysqli_query($Connection, $testemailquery);
+            if (mysqli_num_rows($result) > 0) {
+              $emailErr="email is al in gebruik";
+            }
+            else {
+              $email=$testemail;
+            }
+          }
+          else {
+            $emailErr = $testemail."dat is geen geldig email";
+          }
+
         }
 
         //tests username
@@ -116,8 +138,12 @@
                           </div>
                           <form class="form-signin" method="post" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                             volledige naam:<br>
-                            <input id="Username" class="form-control" type="text" name="naam" required="" value="">
+                            <input id="Username" class="form-control" type="text" name="naam" required="" value="<?php echo $naam;?>">
                             <span class="error">*<?php echo $naamErr;?></span><br>
+
+                            Email:<br>
+                            <input id="Username" class="form-control" type="text" name="email" required="" value="<?php echo $email;?>">
+                            <span class="error">*<?php echo $emailErr;?></span><br>
 
                             username:<br>
                             <input id="Username" class="form-control" type="text" name="Username" required="" value="<?php echo $Usernametest;?>">
@@ -139,15 +165,17 @@
 
 
       if ( ! empty($Username)
-        and ! empty($Password)){
+        and ! empty($Password)
+        and ! empty($naam)
+        and ! empty($email)){
 
 
           //hashes the password and the salt
           $Hashed= hasher($Password);
 
           //sql Query die zal uitgevoerd worden
-          $Query="INSERT INTO users (user_id, Naam, Username, Password, geactiveerd)
-          VALUES (NULL, '$naam', '$Username', '$Hashed', 0);";
+          $Query="INSERT INTO users (user_id, Naam, Username, Password, email, geactiveerd)
+          VALUES (NULL, '$naam', '$Username', '$Hashed','$email', 0);";
 
           if(mysqli_query($Connection, $Query)){
 
