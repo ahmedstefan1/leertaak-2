@@ -11,10 +11,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
-    <title>Weatherstation Coolerts</title>
+    <title>Onzebank</title>
 </head>
 
 <body id="login">
+    <div id="container">
 
 
       <?php
@@ -25,7 +26,7 @@
 
       //check if someone is already logged in
       if (LoggedIn() == 1) {
-        header('location: index.php');
+        header('location: myaccount.php');
         mysqli_close($connection);
       }
 
@@ -52,27 +53,25 @@
 
 
       ?>
-      <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                    <div class="card card-signin my-5">
-                        <div class="card-body">
-                            <div class="logo-container">
-                                <img src="img/logo.jpg" alt="Logo University">
-                            </div>
-                            <form class="form-signin">
-                                <div class="form-label-group">
-                                    <input type="text" id="Username" class="form-control" placeholder="Username" required autofocus>
-                                    <label for="Username">Username</label>
-                                </div>
 
-                                <div class="form-label-group">
-                                    <input type="password" id="Password" class="form-control" placeholder="Password" required>
-                                    <label for="Password">Password</label>
-                                </div>
-                                <button class="btn login-button btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
-                            </form>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+              <div class="card card-signin my-5">
+                  <div class="card-body">
+                      <div class="logo-container">
+                        </div>
+                          <form class="form-signin" method="post" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
+                            username:<br>
+                            <input type="text" id="Username" class="form-control" name="Username" required="" value="<?php echo $Username;?>"><span class="error">*<?php echo $UsernameErr;?></span><br>
+
+                            Password:<br>
+                            <input type="password" id="Password" class="form-control" name="Password" required=""><span class="error">*<?php echo $PasswordErr;?></span><br>
+
+                            <button class="btn login-button btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
+
+                          </form>
                         </div>
                     </div>
                 </div>
@@ -83,7 +82,7 @@
         if ( ! empty($Username) and ! empty($Password)){
 
           // selects tha hash in the database and the salt used from the entry that has the username that the user put in the text field
-          $query ="SELECT user_id, password FROM users WHERE username = '$Username'" ;
+          $query ="SELECT user_id, naam, password, geactiveerd FROM users WHERE username = '$Username'" ;
 
           //the result of that query is put in the variable result
           $Result = mysqli_query($Connection, $query);
@@ -95,24 +94,30 @@
             $ID = $User['user_id'];
             //puts the hash that is in the database into the variable hash
             $hash = $User['password'];
+            $naam = $user['naam'];
 
-            $permission = 0;
+            $actief = $User['geactiveerd'];
 
 
             //if the variable user_input is the same as the hash from the database
             if (password_verify($Password,$hash)) {
               //stores the ID and the username of the user into the session variables
-              $_SESSION["ID"] = "$ID";
-              $_SESSION["Username"] = "$Username";
-              if ($permission == 1) {
-                $_SESSION["Permission"] = 1;
+
+              if ($actief == 1) {
+                $_SESSION["ID"] = "$ID";
+                $_SESSION["Username"] = "$Username";
+                $_SESSION["naam"] = "$naam";
+                header('location: myaccount.php');
+                mysqli_free_result($Result);
+                mysqli_close($Connection);
               }
               else {
-                $_SESSION["Permission"] = 0;
+                header('location: inactief.php');
+                mysqli_free_result($Result);
+                mysqli_close($Connection);
               }
-              mysqli_free_result($Result);
-              mysqli_close($Connection);
-              header('location: index.php');
+
+
 
 
             }

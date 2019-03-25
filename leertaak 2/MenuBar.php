@@ -1,14 +1,17 @@
+<link rel="stylesheet" type="text/css" href="Stylesheet.css">
+
 <ul id="Top-Bar">
-  <li><a id="Link-Left" href="#">Home</a></li>
+  <li><a id="Link-Left" href="index.php">Home</a></li>
 
 <?php
 
   session_start();
 
-  if (isset($_SESSION["ID"])) {
+  if (isset($_SESSION["Username"])) {
     ?>
       <li><a id="Link-Right" href="Log_off.php">sign off</a></li>
-
+      <li><a id="Link-Right" href="overschrijven.php">overschrijven</a></li>
+      <li><a id="Link-Right" href="myaccount.php"><?php echo $_SESSION["Username"]; ?></a></li>
     </ul>
     <?php
   }
